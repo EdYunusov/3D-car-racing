@@ -1,0 +1,32 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+[System.Serializable]
+class EngineIndicatorColor
+{
+    public float MaxRMP;
+    public Color color;
+}
+
+public class CarEngineIndicator : MonoBehaviour
+{
+    [SerializeField] private Car car;
+    [SerializeField] private Image image;
+    [SerializeField] private EngineIndicatorColor[] colors;
+
+    private void Update()
+    {
+        image.fillAmount = car.EngineRMP / car.EngineMaxRMP;
+
+        for (int i = 0; i < colors.Length; i++)
+        {
+            if (car.EngineRMP <= colors[i].MaxRMP)
+            {
+                image.color = colors[i].color;
+                break;
+            }
+        }
+    }
+}
